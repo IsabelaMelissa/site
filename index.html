@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+        header {
+            background: #2980b9;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 15px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            display: none; /* Esconde todos os conteúdos inicialmente */
+        }
+        .active {
+            display: block; /* Mostra o conteúdo ativo */
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            margin-bottom: 20px;
+        }
+        .book {
+            background: #ffffff;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
+            width: 250px; /* Largura do card */
+            scroll-snap-align: start;
+            transition: transform 0.3s;
+            display: flex; /* Alinha imagem e texto horizontalmente */
+        }
+        .book:hover {
+            transform: scale(1.05);
+        }
+        .book img {
+            max-width: 120px; /* Largura da imagem */
+            max-height: 180px; /* Altura da imagem */
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background: #34495e;
+            color: #ffffff;
+            width: 100%;
+        }
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: red;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bem-vindo à Biblioteca Virtual</h1>
+    <nav>
+        <a onclick="showSection('livros')">Livros</a>
+        <a onclick="showSection('generos')">Gêneros</a>
+        <a onclick="showSection('novidades')">Novidades</a>
+        <a onclick="showSection('maislidos')">Mais Lidos</a>
+        <a onclick="showSection('sobre')">Sobre Nós</a>
+        <a onclick="showSection('contato')">Contato</a>
+    </nav>
+</header>
+
+<div class="container active" id="livros">
+    <h2>Livros Disponíveis</h2>
+    <div class="carousel">
+        <div class="book" onclick="openModal('O Alquimista', 'Paulo Coelho', 'Uma história de autodescoberta e busca de sonhos.', 'https://images-na.ssl-images-amazon.com/images/I/51I1HjjURIL._SX331_BO1,204,203,200_.jpg')">
+            <img src="https://m.media-amazon.com/images/I/81IhKtjc-6L._UF894,1000_QL80_.jpg" alt="O Alquimista">
+            <h3>O Alquimista</h3>
+        </div>
+        <div class="book" onclick="openModal('1984', 'George Orwell', 'Uma distopia que explora temas de vigilância e totalitarismo.', 'https://images-na.ssl-images-amazon.com/images/I/41aPejGmMUL._SX323_BO1,204,203,200_.jpg')">
+            <img src="https://www.portalintegrador.com/integracoes/cloudflare/imagens/9786558881896.jpg" alt="1984">
+            <h3>1984</h3>
+        </div>
+        <div class="book" onclick="openModal('Dom Casmurro', 'Machado de Assis', 'Um clássico da literatura brasileira que aborda ciúmes e memória.', 'https://images-na.ssl-images-amazon.com/images/I/51yyERgD+UL._SX331_BO1,204,203,200_.jpg')">
+            <img src="https://images.tcdn.com.br/img/img_prod/1271663/dom_casmurro_edicao_de_luxo_almofadada_89_1_038fb70c564eb50f71ea49f6027e827a.jpg" alt="Dom Casmurro">
+            <h3>Dom Casmurro</h3>
+        </div>
+        <div class="book" onclick="openModal('A Menina que Roubava Livros', 'Markus Zusak', 'A história de uma jovem que encontra consolo em livros durante a Segunda Guerra Mundial.', 'https://images-na.ssl-images-amazon.com/images/I/51sCAG8AzDL._SX340_BO1,204,203,200_.jpg')">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1dc5da07-4fab-48e2-96fc-95386b249b05/dec8lik-9f01524a-0d2d-4dc4-92e1-b3b8da7299ce.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFkYzVkYTA3LTRmYWItNDhlMi05NmZjLTk1Mzg2YjI0OWIwNVwvZGVjOGxpay05ZjAxNTI0YS0wZDJkLTRkYzQtOTJlMS1iM2I4ZGE3Mjk5Y2UucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.-oMGX_-BXU3HKjwzzpEKwBYywR6MbLWXv36pMO2ZAOI" alt="A Menina que Roubava Livros">
+            <h3>A Menina que Roubava Livros</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="generos">
+    <h2>Gêneros</h2>
+    <p>Aqui você pode explorar os diferentes gêneros literários disponíveis, como Ficção, Não-Ficção, Fantasia, Romance e muito mais.</p>
+</div>
+
+<div class="container" id="novidades">
+    <h2>Novidades</h2>
+    <p>Fique por dentro dos lançamentos mais recentes e das obras que estão fazendo sucesso entre os leitores.</p>
+</div>
+
+<div class="container" id="maislidos">
+    <h2>Mais Lidos</h2>
+    <p>Descubra quais livros são os mais lidos e recomendados por outros usuários da nossa biblioteca.</p>
+</div>
+
+<div class="container" id="sobre">
+    <h2>Sobre Nós</h2>
+    <p>A Biblioteca Virtual é um espaço dedicado a amantes da literatura, onde você pode explorar uma variedade de livros e descobrir novas leituras.</p>
+</div>
+
+<div class="container" id="contato">
+    <h2>Contato</h2>
+    <p>Se você tiver alguma dúvida, entre em contato conosco pelo e-mail: contato@bibliotecavirtual.com.br</p>
+</div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p><strong>Autor:</strong> <span id="modalAuthor"></span></p>
+        <p><strong>Descrição:</strong> <span id="modalDescription"></span></p>
+        <img id="modalImage" src="" alt="Imagem do Livro" style="max-width: 100%; border-radius: 5px;">
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Biblioteca Virtual. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.container');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(sectionId).classList.add('active');
+}
+
+function openModal(title, author, description, image) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalAuthor").innerText = author;
+    document.getElementById("modalDescription").innerText = description;
+    document.getElementById("modalImage").src = image;
+    document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+
+// Fecha o modal quando o usuário clica fora dele
+window.onclick = function(event) {
+    const modal = document.getElementById("myModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+</script>
+
+</body>
+</html>
